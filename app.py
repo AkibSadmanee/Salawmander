@@ -7,9 +7,11 @@ app = Flask(__name__)
 with open("config.json", "r") as f:
     config = json.load(f)
 
-client = openai.OpenAI(api_key=config["api_key"])
+client = openai.OpenAI(api_key=config["openai_api_key"])
 
-system_prompt = """Process the user query to decide which forms from the following list the user asks about. 
+
+def get_openai_response(query):
+    system_prompt = """Process the user query to decide which forms from the following list the user asks about. 
 Return ONLY a Python list as your output. Each element must be a dictionary with "form_name" and "justification". 
 If you can't find any match, return a list with a single dictionary: {"form_name": "", "justification": "<polite explanation for the user>"}.
 The form names should be exactly as they appear in the provided list.
@@ -31,9 +33,6 @@ Return:
 ...
 ]
 """
-
-
-def get_openai_response(query):
     ai_response = client.chat.completions.create(
         model=config["model"],
         temperature=0.0,
@@ -53,30 +52,21 @@ def get_openai_response(query):
 
 
 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-
         data = request.get_json()
         user_query = data.get("query", "")
-        
-        processed = get_openai_response(user_query)
-        processed_json = json.dumps(processed)
-        safe_info = urllib.parse.quote_plus(processed_json)
-        redirect_url = url_for("form", info=safe_info)
-        return {"redirect": redirect_url}
-
+        forms_found = get_openai_response(user_query)
+        return {"forms": forms_found, "query": user_query}
     return render_template("index.html")
-
-
-
 
 @app.route("/form")
 def form():
     info = request.args.get("info", "")
-    # Pass processed info to the template
     return render_template("formPage.html", processed_info=info)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

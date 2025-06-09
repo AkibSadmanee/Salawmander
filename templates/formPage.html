@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,54 +8,128 @@
 </head>
 <body>
   <div class="button-container">
-    <button class="theme-toggle"><img src="lightmode.png" alt="Theme toggle" /></button>
-    <button class="question"><img src="question.png" alt="Help" /></button>
+    <button class="theme-toggle">
+      <img src="static/images/lightmode.png" alt="Theme toggle" />
+    </button>
+    <button class="question">
+      <img src="static/images/question.png" alt="Help" />
+    </button>
   </div>
-
 
   <header>
     <div class="logo-title">
-      <img src="salawmanderlogo.png" alt="Logo">
+      <img src="static/images/salawmanderlogo.png" alt="Logo">
       <h1>Sa<span class="law">law</span>mander</h1>
     </div>
   </header>
 
-
   <main class="chat-layout">
     <aside class="form-sidebar">
       <h2>Legal Forms</h2>
-      <div class="form-item">
-        <span>Rental Agreement</span>
-        <div class="progress-container"><div class="progress-bar" style="width: 70%;">70%</div></div>
-      </div>
-      <div class="form-item">
-        <span>Power of Attorney</span>
-        <div class="progress-container"><div class="progress-bar" style="width: 40%;">40%</div></div>
-      </div>
-      <div class="form-item">
-        <span>Will Form</span>
-        <div class="progress-container"><div class="progress-bar" style="width: 90%;">90%</div></div>
-      </div>
+      <div id="forms-list"></div>
     </aside>
 
-
     <section class="chat-panel">
-      {% if processed_info %}
-      <div class="info-banner">
-        <strong>Processed Info:</strong> {{ processed_info }}
-      </div>
-      {% endif %}
+      
+      
+      <div id="matched-forms-banner"></div>
+
+
+
       <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
       <div class="chat-input">
         <input type="text" placeholder="Type your message...">
         <button>Send</button>
       </div>
-      <div class="disclaimer"><strong>Disclaimer:</strong> This is an AI generated website and tool. Please double check all information. Salawmander is not responsible for any damages or injuries incurred as a result of using the website.</div>
+      <div class="disclaimer">
+        <strong>Disclaimer:</strong> This is an AI generated website and tool. Please double check all information. Salawmander is not responsible for any damages or injuries incurred as a result of using the website.
+      </div>
     </section>
   </main>
 
-
   <footer>&copy; 2025 Salawmander. All rights reserved.</footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const toggleBtn = document.querySelector('.theme-toggle');
+      const themeIcon = toggleBtn.querySelector('img');
+
+      // Set the icon correctly on load
+      const isLight = document.body.classList.contains('light-mode');
+      themeIcon.src = isLight ? 'static/images/darkmode.png' : 'static/images/lightmode.png';
+      themeIcon.alt = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+
+      // Toggle logic
+      toggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('light-mode');
+        const isNowLight = document.body.classList.contains('light-mode');
+        themeIcon.src = isNowLight ? 'static/images/darkmode.png' : 'static/images/lightmode.png';
+        themeIcon.alt = isNowLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+        localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+      });
+    });
+  </script>
+
+
+<script>
+  // Helper to read and parse "forms" from the URL
+function getFormsFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const formsJson = params.get('forms');
+  if (!formsJson) return [];
+  try {
+    return JSON.parse(decodeURIComponent(formsJson));
+  } catch (e) {
+    return [];
+  }
+}
+
+// Render forms in the sidebar, replacing dummy ones
+function renderFormsSidebar(forms) {
+  const formsListDiv = document.getElementById('forms-list');
+  formsListDiv.innerHTML = ''; // Clear anything
+
+  if (!forms.length) {
+    formsListDiv.innerHTML = "<div style='color:#aaa;'>No forms found.</div>";
+    return;
+  }
+
+  forms.forEach(form => {
+    // Default to 100% if progress isn't present
+    const progress = typeof form.progress === "number" ? form.progress : 0;
+    formsListDiv.innerHTML += `
+      <div class="form-item">
+        <span>${form.form_name}</span>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: ${progress}%;">${progress}%</div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Theme toggle logic
+  const toggleBtn = document.querySelector('.theme-toggle');
+  const themeIcon = toggleBtn.querySelector('img');
+  const isLight = document.body.classList.contains('light-mode');
+  themeIcon.src = isLight ? 'static/images/darkmode.png' : 'static/images/lightmode.png';
+  themeIcon.alt = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+
+  toggleBtn.addEventListener('click', function() {
+    document.body.classList.toggle('light-mode');
+    const isNowLight = document.body.classList.contains('light-mode');
+    themeIcon.src = isNowLight ? 'static/images/darkmode.png' : 'static/images/lightmode.png';
+    themeIcon.alt = isNowLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+    localStorage.setItem('theme', isNowLight ? 'light' : 'dark');
+  });
+
+  // Handle sidebar forms
+  const forms = getFormsFromQuery();
+  renderFormsSidebar(forms);
+});
+
+</script>
 
 </body>
 </html>

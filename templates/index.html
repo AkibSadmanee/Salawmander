@@ -24,7 +24,7 @@
         <img src="./static/images/salawmanderlogo.png" alt="Salawmander Logo" />
         <h1>Sa<span class="shiny">law</span>mander</h1>
       </div>
-      <p>Just a friendly Salamander helping you fill Hawai'ian judiciary forms.</p>
+      <p>Just a friendly Salamander helping you fill Hawaiian judiciary forms.</p>
     </header>
 
     <div class="chat-container">
@@ -32,15 +32,38 @@
 
       <form class="chat-input" method="POST" action="/">
         <input type="text" name="query" id="user-input" placeholder="Describe your issue here" autocomplete="off" required />
-        <button type="submit">Send</button>
+        <button type="submit" id="send-btn">
+          <span class="btn-text">Send</span>
+          <span class="loader" style="display:none;"></span>
+        </button>
+
       </form>
 
     </div>
   </main>
+  <!-- Put this after your chat area, or in <body> -->
+<div id="confirm-card">
+  <div class="card">
+    <h3>Confirm Forms</h3>
+    <div class="match-section">
+      <p class="match-header">We found the following relevant forms:</p>
+      <ul id="forms-list">
+        <!-- list items inserted here -->
+      </ul>
+    </div>
+    <p class="confirm-question">Are you sure you want to proceed with these forms?</p>
+    <div class="card-btns">
+      <button id="proceed-btn">Proceed</button>
+      <button id="cancel-btn">Cancel</button>
+    </div>
+
+
+  </div>
+</div>
+
 
   <footer>
-    Disclaimer: This is an AI generated website and tool. Please double check all information. Salawmander is not
-    responsible for any damages or injuries incurred as a result of using the website.
+    Disclaimer: The contents of this page are generated with the help of AI. Please double check all information. Salawmander is not responsible for any damages or injuries incurred as a result of using the website.
   </footer>
 
   <script src="static/js/scripts.js"></script>
