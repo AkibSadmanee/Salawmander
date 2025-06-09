@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salawmander</title>
+  <link rel="stylesheet" href="static/css/homeStyles.css" />
+</head>
+
+<body>
+  <div class="button-container">
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <img id="theme-icon" src="static/images/darkmode.png" alt="Toggle Theme">
+  </button>
+  <button class="question">
+    <img src="./static/images/question.png" alt="About Us">
+  </button>
+</div>
+
+  <main>
+    <header>
+      <div class="logo-title">
+        <img src="./static/images/salawmanderlogo.png" alt="Salawmander Logo" />
+        <h1>Sa<span class="shiny">law</span>mander</h1>
+      </div>
+      <p>Just a friendly Salamander helping you fill Hawai'ian judiciary forms.</p>
+    </header>
+
+    <div class="chat-container">
+      <div class="chat-messages" id="chat-messages"></div>
+
+      <form class="chat-input" method="POST" action="/">
+        <input type="text" name="query" id="user-input" placeholder="Describe your issue here" autocomplete="off" required />
+        <button type="submit">Send</button>
+      </form>
+
+    </div>
+  </main>
+
+  <footer>
+    Disclaimer: This is an AI generated website and tool. Please double check all information. Salawmander is not
+    responsible for any damages or injuries incurred as a result of using the website.
+  </footer>
+
+  <script src="static/js/scripts.js"></script>
+
+
+</body>
+
+</html>
