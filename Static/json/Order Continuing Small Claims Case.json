@@ -1,0 +1,52 @@
+{
+  "circuit": {
+	"value": "",
+	"explanation": "Write the name of the court circuit (like 'First Circuit' or 'Second Circuit') where your case is being handled."
+  },
+  "division": {
+	"value": "",
+	"explanation": "Write the specific division of the court (like 'Honolulu' or 'Waianae')."
+  },
+  "filed_in_open_court": {
+	"value": false,
+	"explanation": "Check this box if the judge gave you this order during a court hearing."
+  },
+  "plaintiff": {
+	"value": "",
+	"explanation": "Write the name of the person who filed the small claims case."
+  },
+  "defendant": {
+	"value": "",
+	"explanation": "Write the name of the person being sued in the small claims case."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write the court case number. You can find this on your other court papers."
+  },
+  "new_court_date": {
+	"value": "",
+	"explanation": "Write the new date when the small claims court hearing will happen (month/day/year)."
+  },
+  "new_court_time": {
+	"value": "",
+	"explanation": "Write the new time for the court hearing (use regular 12-hour time, like '10:30')."
+  },
+  "time_of_day": {
+	"value": "",
+	"explanation": "Choose either 'a.m.' or 'p.m.' to show whether the court time is in the morning or afternoon."
+  },
+  "courtroom_number": {
+	"value": "",
+	"explanation": "Write the number of the courtroom where the new hearing will take place."
+  },
+  "clerk_date": {
+	"value": "",
+	"explanation": "Date when the court clerk signed this order."
+  },
+  "clerk_signature": {
+	"value": "",
+	"explanation": "Signature of the court clerk who is issuing this order."
+  }
+}
+
+

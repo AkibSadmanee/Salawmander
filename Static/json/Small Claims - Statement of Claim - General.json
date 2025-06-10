@@ -1,0 +1,64 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court division (like 'Honolulu' or 'Wai‘anae') where you're filing the case."
+  },
+  "case_number": {
+	"value": "",
+	"explanation": "Leave this blank. The court will fill in the case number after you file."
+  },
+  "plaintiff_contact": {
+	"value": "",
+	"explanation": "Write your name, address, phone number, and email. You are the person filing the case (the Plaintiff)."
+  },
+  "defendant_contact": {
+	"value": "",
+	"explanation": "Write the name, address, phone number, and email of the person you're suing (the Defendant)."
+  },
+  "attorney_contact": {
+	"value": "",
+	"explanation": "If you have a lawyer, write their name, attorney number, firm name, address, phone number, and email. Leave blank if you don’t have a lawyer."
+  },
+  "amount_owed": {
+	"value": "",
+	"explanation": "Write how much money you believe the Defendant owes you. The amount must be $5,000 or less."
+  },
+  "date_money_owed_since": {
+	"value": "",
+	"explanation": "Write the date (month/day/year) that the money became owed to you."
+  },
+  "reason_for_claim": {
+	"value": "",
+	"explanation": "Explain why you believe the Defendant owes you the money. Give details. You can attach another page if you need more space."
+  },
+  "declaration_date": {
+	"value": "",
+	"explanation": "Write today’s date when you are signing this form."
+  },
+  "plaintiff_signature": {
+	"value": "",
+	"explanation": "Sign your name to promise that everything in the form is true."
+  },
+  "defendant_name_notice": {
+	"value": "",
+	"explanation": "Write the name of the person you're suing (the Defendant) again for the notice section."
+  },
+  "hearing_place": {
+	"value": "",
+	"explanation": "The court will fill this in with the hearing location after scheduling."
+  },
+  "hearing_date_time": {
+	"value": "",
+	"explanation": "The court will fill this in with the date and time for your hearing."
+  },
+  "clerk_signature_date": {
+	"value": "",
+	"explanation": "The court clerk will fill in the date they scheduled your hearing."
+  },
+  "clerk_signature": {
+	"value": "",
+	"explanation": "The court clerk will sign here after scheduling your hearing."
+  }
+}
+
+

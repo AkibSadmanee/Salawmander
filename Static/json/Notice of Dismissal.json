@@ -1,0 +1,50 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court location (like 'Honolulu' or 'Maui')."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write your case number. You can find this on your court papers."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the full name of the person or people who started the case (the one(s) suing)."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write the full name of the person or people being sued."
+  },
+  "filing_party_info": {
+	"value": "",
+	"explanation": "Write your name and contact information (or your lawyer’s if they are filing this for you). Include phone and address."
+  },
+  "court_date_and_time": {
+	"value": "",
+	"explanation": "Write the court date and time, if you have one scheduled."
+  },
+  "dismissal_type": {
+	"value": "",
+	"explanation": "Choose one: 'WITH prejudice' means the case is closed and can’t be filed again. 'WITHOUT prejudice' means it can be filed again later."
+  },
+  "partial_dismissal_defendants": {
+	"value": "",
+	"explanation": "If you are only dismissing the case against some of the defendants, write their names here. Leave blank if you're dismissing the whole case."
+  },
+  "no_remaining_claims_acknowledgment": {
+	"value": "",
+	"explanation": "Check this if you're dismissing all claims against all parties. This confirms there's nothing left to argue in the case."
+  },
+  "filing_date": {
+	"value": "",
+	"explanation": "Write the date when you are submitting this form to the court."
+  },
+  "signature": {
+	"value": "",
+	"explanation": "Sign your name here to confirm you are asking to dismiss the case (or part of it)."
+  },
+  "printed_name": {
+	"value": "",
+	"explanation": "Print or type your full name under your signature."
+  }
+}

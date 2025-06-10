@@ -1,0 +1,64 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court division (like 'Honolulu', 'Waianae', etc.) where your case is being handled."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write the case number for your court case. You can find this on your court documents."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the full name(s) of the person or people who started the case (the Plaintiff(s))."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write the full name(s) of the person or people being sued (the Defendant(s))."
+  },
+  "filing_party_info": {
+	"value": "",
+	"explanation": "Write the name and contact info of the person or attorney submitting this form (address, phone number, etc.)."
+  },
+  "next_court_date_time": {
+	"value": "",
+	"explanation": "Write the next court date and time if there is one. If not, write 'None'."
+  },
+  "next_court_type": {
+	"value": "",
+	"explanation": "Select what type of court event was scheduled: Return, Pre-Trial, Trial, Answer, or something else."
+  },
+  "dismissal_type": {
+	"value": "",
+	"explanation": "Choose one: 'WITH prejudice' (case is closed and can't be refiled), or 'WITHOUT prejudice' (case can be refiled later)."
+  },
+  "partial_dismissal_defendant": {
+	"value": "",
+	"explanation": "If you're only dismissing the case against one or some defendants, write their name(s) here."
+  },
+  "full_dismissal_confirmed": {
+	"value": false,
+	"explanation": "Check this if you are dismissing all claims against all parties and ending the case completely."
+  },
+  "plaintiff_signature_date": {
+	"value": "",
+	"explanation": "Write the date when the Plaintiff (or their lawyer) signs this form."
+  },
+  "plaintiff_signature": {
+	"value": "",
+	"explanation": "Signature of the Plaintiff or their lawyer."
+  },
+  "plaintiff_printed_name": {
+	"value": "",
+	"explanation": "Print or type the name of the Plaintiff or their lawyer."
+  },
+  "defendant_signature_date": {
+	"value": "",
+	"explanation": "Write the date when the Defendant (or their lawyer) signs this form."
+  },
+  "defendant_signature": {
+    "value": "",
+	"explanation": "Signature of the court clerk who is issuing this order."
+  }
+}
+
+

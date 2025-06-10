@@ -2,11 +2,11 @@ function toggleTheme() {
   document.body.classList.toggle('light-mode');
   const icon = document.getElementById('theme-icon');
   if (document.body.classList.contains('light-mode')) {
-    icon.src = 'static/images/lightmode.png';
+    icon.src = 'static/images/darkmode.png';
     icon.alt = 'Switch to Dark Mode';
     localStorage.setItem('theme', 'light');
   } else {
-    icon.src = 'static/images/darkmode.png';
+    icon.src = 'static/images/lightmode.png';
     icon.alt = 'Switch to Light Mode';
     localStorage.setItem('theme', 'dark');
   }
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sendBtn.disabled = false;
             userInput.value = "";
         }
-    });
+    }); 
 
   function showConfirmationCard(forms, userQuery) {
     const card = document.getElementById("confirm-card");
@@ -132,3 +132,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 });
+
+
+const aboutCard = document.getElementById('about-card');
+const aboutCardInner = aboutCard.querySelector('.card');
+const aboutCloseBtn = document.getElementById('about-close-btn');
+
+// Show the modal
+document.querySelector('.question').addEventListener('click', function() {
+  aboutCard.style.display = 'flex';
+});
+
+// Click outside to close
+aboutCard.addEventListener('mousedown', function(e) {
+  if (!aboutCardInner.contains(e.target)) {
+    aboutCard.style.display = 'none';
+  }
+});
+
+// Close button
+aboutCloseBtn.addEventListener('click', function() {
+  aboutCard.style.display = 'none';
+});
+
+// Esc key closes modal
+document.addEventListener('keydown', function(e) {
+  if (aboutCard.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) {
+    aboutCard.style.display = 'none';
+  }
+});
+
+

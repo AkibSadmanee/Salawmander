@@ -102,7 +102,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      height: calc(100vh - 12vh - 3rem);
+      height: calc(79vh);
     }
 
 
@@ -125,6 +125,7 @@
       background-color: #444;
       border-radius: 1rem;
       overflow: hidden;
+      margin-bottom: 10%;
     }
 
 
@@ -133,7 +134,7 @@
       height: 100%;
       width: 0;
       text-align: center;
-      line-height: 1.7rem;
+      line-height: 1.9rem;
       color: white;
       font-weight: bold;
       transition: width 0.5s ease;
@@ -147,7 +148,7 @@
 
     body.light-mode .progress-bar {
       background-color: #4a7b1b;
-      color: #d7e9c9;
+      color: #000000;
     }
 
 
@@ -342,3 +343,95 @@
         height: auto;
       }
     }
+
+
+    #about-card {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+#about-card .card {
+  background: #232323;
+  color: #e6e6e6;
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem 1.5rem;
+  width: 90vw;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 4px 24px #0002, 0 1.5px 12px #23232340;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  transition: background 0.3s, color 0.3s;
+  box-shadow:
+    0 4px 24px #0002,            /* existing shadow */
+    0 1.5px 12px #23232340,      /* existing shadow */
+    0 0 24px 6px #86a645aa;
+}
+
+#about-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+#about-card .about-section {
+  width: 100%;
+  margin-bottom: 1.2rem;
+  font-size: 1.08rem;
+  text-align: left;
+}
+
+#about-card .card-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+#about-close-btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 0.7rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #86a645;
+  color: #fff;
+  transition: background 0.3s;
+  box-shadow: 0 2px 8px #23232322;
+}
+#about-close-btn:hover {
+  background: #a4af54;
+}
+
+/* Light mode for about card */
+body.light-mode #about-card .card {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 4px 24px #0001, 0 1.5px 12px #bbb2;
+}
+body.light-mode #about-close-btn {
+  background: #86a645;
+  color: #fff;
+}
+body.light-mode #about-close-btn:hover {
+  background: #a4af54;
+}
+
+#about-card a {
+  color: #86a645;
+  text-decoration: underline;
+}
+body.light-mode #about-card a {
+  color: #86a645;
+}

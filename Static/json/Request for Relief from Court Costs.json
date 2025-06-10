@@ -1,0 +1,112 @@
+{
+  "circuit": {
+	"value": "",
+	"explanation": "Write the name of the court circuit handling your case (like 'First Circuit')."
+  },
+  "division": {
+	"value": "",
+	"explanation": "Write the specific court division (like 'Honolulu', 'Maui', etc.)."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write your case number. You can find this on your court paperwork."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the name(s) of the person or people who started the case."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write the name(s) of the person or people being sued."
+  },
+  "filing_party_info": {
+	"value": "",
+	"explanation": "Write your name and contact information. If you have a lawyer, write their name and contact info instead."
+  },
+  "pro_bono_attorney_checkbox": {
+	"value": false,
+	"explanation": "Check this box if the attorney is working for free (pro bono). Leave it blank if it doesn’t apply."
+  },
+  "is_employed": {
+	"value": "",
+	"explanation": "Write 'Yes' if you are working, or 'No' if you are not currently employed."
+  },
+  "monthly_income": {
+	"value": "",
+	"explanation": "Write the total amount of money you earn each month from your job."
+  },
+  "employer_name_and_address": {
+	"value": "",
+	"explanation": "Write the name and address of your current or most recent employer."
+  },
+  "date_last_employed": {
+	"value": "",
+	"explanation": "If you’re not working now, write the last date you had a job."
+  },
+  "housing_status": {
+	"value": "",
+	"explanation": "Write 'Rent' or 'Own' to show if you rent or own your home."
+  },
+  "monthly_housing_payment": {
+	"value": "",
+	"explanation": "Write the amount you pay each month for rent or a mortgage."
+  },
+  "receives_rent_assistance": {
+	"value": "",
+	"explanation": "Write 'Yes' if you get help paying your rent (like Section 8), or 'No' if you do not."
+  },
+  "owns_other_real_estate": {
+	"value": "",
+	"explanation": "Write 'Yes' if you own any property other than your home. Write 'No' if you don’t."
+  },
+  "other_real_estate_value": {
+	"value": "",
+	"explanation": "If you said 'Yes' above, write the total value of that other property."
+  },
+  "has_bank_account": {
+	"value": "",
+	"explanation": "Write 'Yes' if you have money in any bank account. Write 'No' if you don’t."
+  },
+  "bank_account_total": {
+	"value": "",
+	"explanation": "If you said 'Yes', write the total amount of money in all your accounts."
+  },
+  "owns_vehicle": {
+	"value": "",
+	"explanation": "Write 'Yes' if you own any cars or trucks. Write 'No' if you do not."
+  },
+  "receives_assistance": {
+	"value": [],
+	"explanation": "Check all that apply to you: Social Security (SSI or SSDI), SNAP, TANF, Food Stamps, etc."
+  },
+  "dependents": {
+	"value": "",
+	"explanation": "List anyone you support financially (like children or relatives). Say who they are and how much you give to support them."
+  },
+  "other_income_sources": {
+	"value": "",
+	"explanation": "If you get any other money not listed above, explain what it is (like side jobs, gifts, etc.)."
+  },
+  "declaration_signature_date": {
+	"value": "",
+	"explanation": "Write the date you are signing this form."
+  },
+  "declaration_signature": {
+	"value": "",
+	"explanation": "Sign your name to confirm everything you wrote is true."
+  },
+  "declaration_name": {
+	"value": "",
+	"explanation": "Print or type your full name under your signature."
+  },
+  "court_order_result": {
+	"value": "",
+	"explanation": "This section is for the judge. They will check either 'Granted' (fees waived) or 'Denied' (you must pay the fees)."
+  },
+  "judge_signature_date": {
+	"value": "",
+	"explanation": "Date the judge signs this form (you do not fill this out)."
+  }
+}
+
+

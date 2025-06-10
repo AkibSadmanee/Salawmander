@@ -1,0 +1,68 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court division (like 'Honolulu', 'Wai‘anae', etc.) where you're filing the case."
+  },
+  "case_number": {
+	"value": "",
+	"explanation": "Leave this blank. The court will assign a case number after you file."
+  },
+  "plaintiff_name": {
+	"value": "",
+	"explanation": "Write your full name. You are the person filing the case (the tenant)."
+  },
+  "plaintiff_contact": {
+	"value": "",
+	"explanation": "Write your full address, phone number, and email so the court can contact you."
+  },
+  "landlord_name": {
+	"value": "",
+	"explanation": "Write the full name of your landlord. They are the Defendant in the case."
+  },
+  "landlord_contact": {
+	"value": "",
+	"explanation": "Write your landlord’s full address, phone number, and email (if known)."
+  },
+  "amount_owed": {
+	"value": "",
+	"explanation": "Write the amount of your security deposit that you believe your landlord still owes you."
+  },
+  "move_out_date": {
+	"value": "",
+	"explanation": "Write the date you moved out of the rental property (month/day/year)."
+  },
+  "reason_for_claim": {
+	"value": "",
+	"explanation": "Explain why you believe your landlord should return your security deposit. You can attach more pages if needed."
+  },
+  "declaration_date": {
+	"value": "",
+	"explanation": "Write the date you are signing this form."
+  },
+  "plaintiff_signature": {
+	"value": "",
+	"explanation": "Sign your name to swear that everything you wrote is true."
+  },
+  "notice_to": {
+	"value": "",
+	"explanation": "Write your landlord’s name again here for the notice section."
+  },
+  "hearing_place": {
+	"value": "",
+	"explanation": "The court will fill this in with the address of the courthouse where your hearing will be."
+  },
+  "hearing_date_time": {
+	"value": "",
+	"explanation": "The court will fill this in with the date and time for your hearing."
+  },
+  "clerk_signature_date": {
+	"value": "",
+	"explanation": "The court clerk will write the date when the hearing was scheduled."
+  },
+  "clerk_signature": {
+	"value": "",
+	"explanation": "The court clerk will sign here after scheduling your hearing."
+  }
+}
+
+

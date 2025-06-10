@@ -1,0 +1,52 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court location (like 'Honolulu' or 'Kauai')."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write the case number. You can find this on other court papers for your case."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the full name of the person or people who started the case (the one suing)."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write the full name of the person or people being sued."
+  },
+  "filing_party_or_attorney": {
+	"value": "",
+	"explanation": "Write your name and contact info (address, phone, etc.). If you have a lawyer, write their name and info too."
+  },
+  "documents_served": {
+	"value": "",
+	"explanation": "Write the name of the document you gave to the other person (like 'Complaint' or 'Motion') and the date you filed it with the court."
+  },
+  "service_date": {
+	"value": "",
+	"explanation": "Write the exact date you gave or mailed the document to the other person."
+  },
+  "service_method": {
+	"value": "",
+	"explanation": "Say how you gave the document to the other person: write 'Hand-delivery' if you gave it in person, or 'Mail' if you sent it by mail."
+  },
+  "recipient_names_and_addresses": {
+	"value": [],
+	"explanation": "Write the full name and mailing address of each person you gave or mailed the document to."
+  },
+  "signature": {
+	"value": "",
+	"explanation": "Sign your name here to say the information is true."
+  },
+  "typed_name": {
+	"value": "",
+	"explanation": "Print or type your full name here."
+  },
+  "date_signed": {
+	"value": "",
+	"explanation": "Write the date you signed this form."
+  }
+}
+
+

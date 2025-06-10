@@ -1,0 +1,96 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court location (like 'Honolulu' or 'Kauai')."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write your case number. You can find this on other court papers for your case."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the full name of the person who started the case (the one suing)."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write your full name (you are the person asking for more time in the case)."
+  },
+  "filing_party_info": {
+	"value": "",
+	"explanation": "Write your name and contact details (address, phone, etc.). If you have a lawyer, write their info instead."
+  },
+  "type_of_motion": {
+	"value": "",
+	"explanation": "Write what kind of hearing you want to delay (for example: 'Trial', 'Pre-Trial', 'Returnable', etc.)."
+  },
+  "other_type": {
+	"value": "",
+	"explanation": "If it's a different type of hearing not listed, write it here (like 'Mediation' or 'Status Conference')."
+  },
+  "reason_for_continuance": {
+	"value": "",
+	"explanation": "Explain why you need more time or why you can’t attend the original court date."
+  },
+  "old_date_time": {
+	"value": "",
+	"explanation": "Write the current date and time the court was supposed to hear the case."
+  },
+  "new_date_time": {
+	"value": "",
+	"explanation": "Write the new date and time you are asking the court to reschedule to."
+  },
+  "number_of_prior_continuances": {
+	"value": "",
+	"explanation": "Write how many times you have already asked the court to change the date before this request."
+  },
+  "opposing_party_name": {
+	"value": "",
+	"explanation": "Write the name of the other person or their lawyer (the one on the other side of your case)."
+  },
+  "certificate_service_date": {
+	"value": "",
+	"explanation": "Write the date you gave or mailed a copy of this Motion to the other party."
+  },
+  "service_method": {
+	"value": "",
+	"explanation": "Say how you sent the Motion: write 'Hand-delivery' if in person, or 'Mail' if sent by post."
+  },
+  "service_address": {
+	"value": "",
+	"explanation": "Write the address where you gave or mailed the copy to the other party."
+  },
+  "filing_party_signature": {
+	"value": "",
+	"explanation": "Sign your name to say the information in this Motion is true."
+  },
+  "filing_party_name": {
+	"value": "",
+	"explanation": "Print or type your name under your signature."
+  },
+  "response_choice": {
+	"value": "",
+	"explanation": "The other party will check one: either they agree (don’t object) or disagree with your request."
+  },
+  "response_reason_if_disagree": {
+	"value": "",
+	"explanation": "If the other person disagrees, they can explain why here."
+  },
+  "response_service_date": {
+	"value": "",
+	"explanation": "Date the other party sent you their response to the Motion."
+  },
+  "response_service_method": {
+	"value": "",
+	"explanation": "How the response was sent to you: 'Hand-delivery' or 'Mail'."
+  },
+  "response_service_address": {
+	"value": "",
+	"explanation": "Where the response was delivered or mailed to you."
+  },
+  "opposing_party_signature": {
+	"value": "",
+	"explanation": "The other party signs here if they are sending a response."
+  }
+}
+
+

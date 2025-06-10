@@ -1,0 +1,72 @@
+{
+  "division": {
+	"value": "",
+	"explanation": "Write the name of the court location (like 'Honolulu' or 'Maui')."
+  },
+  "civil_number": {
+	"value": "",
+	"explanation": "Write the case number from your court documents."
+  },
+  "plaintiffs": {
+	"value": "",
+	"explanation": "Write the full name of the person who first started the case (the one suing)."
+  },
+  "defendants": {
+	"value": "",
+	"explanation": "Write your full name (you are the person replying with this counterclaim)."
+  },
+  "defendant_or_attorney_info": {
+	"value": "",
+	"explanation": "Write your name and contact details. If you have a lawyer, write their name, law firm, and contact information."
+  },
+  "date_money_owed": {
+	"value": "",
+	"explanation": "Write the date (or approximate date) when you believe the plaintiff owed you money."
+  },
+  "amount_breakdown": {
+	"value": "",
+	"explanation": "Explain why the plaintiff owes you money and how you came up with the total amount. (Use another page if needed.)"
+  },
+  "judgment_amount": {
+	"value": "",
+	"explanation": "Write the total amount of money you are asking the court to make the plaintiff pay you."
+  },
+  "service_date": {
+	"value": "",
+	"explanation": "Write the date when you gave or mailed a copy of this Counterclaim to the other party (the plaintiff)."
+  },
+  "service_method": {
+	"value": "",
+	"explanation": "Say how you gave the Counterclaim to the plaintiff: write 'Hand-delivery' if in person, or 'Mail' if you sent it."
+  },
+  "service_address": {
+	"value": "",
+	"explanation": "Write the mailing address where you sent or gave the Counterclaim to the plaintiff."
+  },
+  "certificate_signature_date": {
+	"value": "",
+	"explanation": "Write the date when you signed the certificate to say you gave the Counterclaim to the other side."
+  },
+  "certificate_signature": {
+	"value": "",
+	"explanation": "Sign your name to confirm you served (sent or gave) the Counterclaim to the plaintiff."
+  },
+  "certificate_name": {
+	"value": "",
+	"explanation": "Print or type your name below your signature."
+  },
+  "declaration_signature_date": {
+	"value": "",
+	"explanation": "Write the date when you are signing this Declaration section."
+  },
+  "declaration_signature": {
+	"value": "",
+	"explanation": "Sign your name here to say everything in your Counterclaim is true to the best of your knowledge."
+  },
+  "declaration_name": {
+	"value": "",
+	"explanation": "Print or type your name below your declaration signature."
+  }
+}
+
+	
