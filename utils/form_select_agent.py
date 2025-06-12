@@ -1,7 +1,10 @@
 from pydantic import BaseModel, Field
 from typing import List
 from pydantic_ai import Agent
+import json
 
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 class Form(BaseModel):
     form_name: str = Field(..., description="Unchanged full name of the Form.")
@@ -11,12 +14,13 @@ class FormResponse(BaseModel):
     forms: List[Form] = Field(..., description="List of forms with their names and justifications.")
 
 form_select_agent = Agent(
-    'openai:gpt-4.1-mini-2025-04-14',
+    config["form_select_agent_model"],
     deps_type=None,
     output_type=FormResponse,
-    system_prompt="""Process the user query to decide which form(s) from the following list they are asking about. 
-Return a list of Forms you find relevant. Each Form will have a `form_name` picked from the given list and a *one-line* `justification` directed to the user explaining why you selected that form.
+    system_prompt="""A user query can mention one or more forms from the following list. Process the user query to decide which form(s) from the following list they are asking about. 
+Return a list of Form(s) you find relevant. Each Form will have a `form_name` picked from the given list and a *one-line* `justification` directed to the user explaining why you selected that form.
 If you can't find any match, return a list of Forms where the `form_name` is a empty string and a suitable *one-line* justification directed to the user.
+Remember that the users can make simple typos.
 
 List of available forms:
 Certificate of Service

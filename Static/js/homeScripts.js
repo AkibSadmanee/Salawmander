@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
         okBtn.className = 'ok-btn';
         okBtn.textContent = 'Okay';
         okBtn.onclick = function() {
-            card.style.display = "none";
+            // card.style.display = "none";
+            location.reload(); // <-- reload the page!
         };
         cardContent.appendChild(okBtn);
 

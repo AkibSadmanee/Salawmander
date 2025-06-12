@@ -30,12 +30,7 @@
     </aside>
 
     <section class="chat-panel">
-      
-      
       <div id="matched-forms-banner"></div>
-
-
-
       <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
       <div class="chat-input">
         <input type="text" placeholder="Type your message...">
@@ -47,7 +42,7 @@
     </section>
   </main>
 
-  <div id="about-card">
+  <div id="about-card" style="display: none;">
     <div class="card">
       <h3>About Us</h3>
       <div class="about-section">
@@ -62,10 +57,20 @@
     </div>
   </div>
 
+  <div id="form-popup" class="form-modal" style="display: none;">
+    <div class="form-modal-content">
+      <button class="form-modal-close">&times;</button>
+      <div id="form-content"></div>
+    </div>
+  </div>
 
   <footer>&copy; 2025 Salawmander. All rights reserved.</footer>
-
   <script src="static/js/formsScripts.js"></script>
 
+  <!-- Inject chat history and forms data from Flask -->
+  <script>
+    window.chatHistory = {{ chat_history|tojson }};
+    window.formsData = {{ forms|tojson }};
+  </script>
 </body>
 </html>
