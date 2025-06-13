@@ -1,130 +1,168 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
-
+from fastapi import FastAPI, Request, Form, HTTPException
+from fastapi.responses import JSONResponse, HTMLResponse, PlainTextResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
-
-from pydantic import BaseModel, Field
-from typing import Dict, Any
+from typing import Dict, Any, List
 from pydantic_ai import Agent
+from datetime import datetime
 
 from utils.form_select_agent import form_select_agent
 from utils.forms import user_forms
+from utils.helpers import get_percentage, generate_html_form
 
-app = Flask(__name__)
 
-selected_forms = []
+
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+templates = Jinja2Templates(directory="templates")
+
+
+selected_forms: List[dict] = []
 initial_message = "Hi!! Could you provide some basic information about you to start filling the forms? Something like your name, address, etc."
 chat_messages = []
 
-class UpdateJsonInput(BaseModel):
-    new_data: Dict[str, Any] = Field(..., description="Dictionary where keys are field names and values are the user-provided values.")
-
+class UpdateValueStructure(BaseModel):
+    key: str = Field(..., description="The name of the field to update.")
+    value: Any = Field(..., description="The value to set for the field.")
 
 class Response(BaseModel):
     response: str = Field(None, description="A question for the user if more information is needed, a completion note otherwise.")
     
-def get_percentage(JSON):
-    """Calculate the percentage of fields filled in the selected forms."""
-    counter = 0
-    keys = list(JSON.keys())
-    values = list(JSON.values())
-    for key, values in JSON.items():
-        if key == "form_name":
-            continue
-        elif values != None:
-            counter += 1
-    try:
-        decimal = counter/len(keys) if keys else 0
-    except ZeroDivisionError:
-        decimal = 0
-    percentage = round(decimal * 100, 0)
-    return percentage
-
-
 
 fill_json_agent = Agent(
     "gpt-4.1",
     deps_type=None,
     output_type=Response,
-    system_prompt="""You are an AI assistant that helps users fill out forms. Remember that the users can make simple typos.
-You will load the most recent JSON data using the `get_most_recent_json` tool.
-You will process the user message and update the all the fields of the JSON object that you can fill with the provided information using the `update_json` tool. Pass a dictionary where the keys are the field names and the values are the user-provided values.
-You will always return a response. 
-*Important rules:*
-If there are missing values in the updated JSON object, ask for one to the user. Make sure to explain in very simple terms what the user should answer your query with.
-If all the fields of the json object are filled, return a completion note.
-If you can't fill any field of the JSON object, return a question to the user asking for a missing value from the JSON.
-If you are not sure about whether the user is a defendant or a plaintiff, ask the user to clarify their role in the case.
-You may call each tool only once per run.
-Completely ignore the fields of the JSON object that are not empty or None.
-The Division can only be one of the following: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
-The Circuit can only be one of the following: "First: Oahu", "Second:Maui, Moloka'i Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
+#     system_prompt="""You are an AI assistant that helps users fill out all the forms at the same time by asking relevant questions in simple terms. Remember that the users can make simple typos.
+# Ask for information overlapping between the forms first and then move on to the standalone information.
+# You will load the current list of forms using the get_most_recent_forms tool.
+# You will analyze the user message and update the all the fields of the relevant forms that you can confidently fill with the provided information by passing a python dictionary (where the keys are the field names and the values are the user-provided values) to the update_json tool.
+# The update_json tool will iterate over all the loaded forms and update the values for all the fields in all the forms where the keys match with the dictionary you provide.
+
+# *Important rules:*
+# If there are missing values in the updated JSON object, ask for one to the user. Make sure to explain in very simple terms what the user should answer your query with.
+# You never ask for more than two values at a time. You also never ask for a value that is already filled in the JSON object.
+# If all the fields of the json object are filled, return a completion note instead of a query.
+# If you can't fill any field of the JSON object, return a question to the user asking for a missing value from the loaded JSON.
+# Always confirm whether the user is a defendant or a plaintiff if that information is needed but not yet known. Only enter human names in those fields.
+# You may call each tool only once per run.
+# If the user provides information that conflicts with already-filled fields, ask for clarification before updating.
+# Be very careful about what values you fill in what keys of the JSON object. If you are not sure about the value, ask the user to clarify.
+# The Division can only be one of the following: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
+# The Circuit can only be one of the following: "First: Oahu", "Second:Maui, Moloka'i Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
+# Always convert dates to the format MM-DD-YYYY. In case you need today's date, use the get_today_date tool.
+# """
+    system_prompt="""
+You are an AI assistant helping users fill out multiple forms simultaneously.
+
+
+Process:
+- Use the get_most_recent_forms tool to load current forms.
+- Ask users simple questions to fill overlapping fields first, then move to unique fields.
+- Users might make typos; clarify if needed.
+- Confirm if the user is a plaintiff or defendant when necessary; only enter human names in these fields.
+- Convert all dates to MM-DD-YYYY. Use get_today_date for today's date.
+
+
+Interaction Rules:
+- Ask no more than two values at once.
+- Don't request values already provided.
+- If all fields are filled, confirm completion.
+- Clarify immediately if provided information conflicts with existing data.
+- Only fill fields confidently; otherwise, request clarification.
+
+
+Field Constraints:
+- Division options: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
+- Circuit options: "First: Oahu", "Second: Maui, Moloka'i, Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
+- Use the update_json tool once per interaction to update fields with a Python dictionary ({field_name: user_value}).
 """
 )
 
-@fill_json_agent.tool_plain  
-def get_most_recent_json() -> dict:
-    """Get the most recent JSON data from the form."""
+@fill_json_agent.tool_plain
+def get_most_recent_forms() -> list[dict]:
     return selected_forms
 
 
 @fill_json_agent.tool_plain
 def update_json(**updates):
-    """Update the selected forms with the provided dictionary."""
     for key, value in updates.items():
         for d in selected_forms:
             if key in d:
                 d[key] = value
 
 
-@app.route("/", methods=["GET", "POST"])
-async def index():
+@fill_json_agent.tool_plain
+def get_today_date():
+    return datetime.today().strftime("%m/%d/%Y")
+
+
+@app.get("/")
+async def root(request: Request):
+    global selected_forms, initial_message, chat_messages
+
+    selected_forms = []
+    initial_message = "Hi!! Could you provide some basic information about you to start filling the forms? Something like your name, address, etc."
+    chat_messages = []
+    
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.post("/")
+async def post_root(request: Request):
     global initial_message
-    if request.method == "POST":
-        data = request.get_json()
-        user_query = data.get("query", "")
-        response = await form_select_agent.run(user_query)
-        forms_found = [form.model_dump() for form in response.output.forms]
-        for form in forms_found:
-            if form["form_name"]:
-                selected_forms.append(user_forms[form["form_name"]]().model_dump())
-                selected_forms[-1]["form_name"] = form["form_name"]
+    data = await request.json()
+    user_query = data.get("query", "")
+    response = await form_select_agent.run(user_query)
 
-        response = await fill_json_agent.run(user_query)
-        initial_message = response.output.response
-        chat_messages.append({"role": "salawmander", "content": initial_message})
-        return {"forms": forms_found}
-    return render_template("index.html")
+    forms_found = [form.model_dump() for form in response.output.forms]
+    for form in forms_found:
+        if form["form_name"]:
+            selected_forms.append(user_forms[form["form_name"]]().model_dump())
+            selected_forms[-1]["form_name"] = form["form_name"]
+
+    fill_response = await fill_json_agent.run(user_query)
+    initial_message = fill_response.output.response
+    chat_messages.append({"role": "salawmander", "content": initial_message})
+
+    return JSONResponse(content={"forms": forms_found})
 
 
-@app.route("/form")
-def form():
-    info = request.args.get("info", "")
+@app.get("/form")
+async def form(request: Request, info: str = ""):
     form_progress_data = [
         {
-            "form_name": form.get("form_name", f"Form {i+1}"),
+            "form_name": form.get("form_name", f"Form {i + 1}"),
             "progress": get_percentage(form)
         }
         for i, form in enumerate(selected_forms)
     ]
-    return render_template(
+    return templates.TemplateResponse(
         "formPage.html",
-        processed_info=info,
-        chat_history=chat_messages,
-        forms=form_progress_data
+        {
+            "request": request,
+            "processed_info": info,
+            "chat_history": chat_messages,
+            "forms": form_progress_data
+        }
     )
 
 
-@app.route("/form-fill", methods=["POST"])
-async def form_fill():
-    data = request.get_json()
+@app.post("/form-fill")
+async def form_fill(request: Request):
+    data = await request.json()
     user_query = data.get("query", "")
     chat_messages.append({"role": "user", "content": user_query})
-    query = chat_messages[-1]["content"]+ "\n\nuser query: " + user_query
+
+    query = chat_messages[-1]["content"] + "\n\nuser query: " + user_query
     response = await fill_json_agent.run(query)
+
     result_message = response.output.response
     chat_messages.append({"role": "salawmander", "content": result_message})
 
-    return jsonify({
+    return JSONResponse(content={
         "message": result_message,
         "forms": [
             {
@@ -136,11 +174,41 @@ async def form_fill():
     })
 
 
-# @app.route("/get_html", methods=["POST"])
-# def get_html():
-#     pass
+@app.post("/get_html")
+async def get_html(request: Request):
+    data = await request.json()
+    form_name = data.get("form_name")
+    print(f"Selected forms: {selected_forms}")
+    print()
+    print(f"Received form_name: {form_name}")
+    # Validate form_name
+    if not form_name:
+        raise HTTPException(status_code=400, detail="form_name is required.")
+
+    # Search for matching form
+    matched_form = next((f for f in selected_forms if f.get("form_name") == form_name), None)
+    print(f"Matched form: {matched_form}")
+    if not matched_form:
+        raise HTTPException(status_code=404, detail="Form not found.")
+
+    html_content = generate_html_form(matched_form)
+    return HTMLResponse(content=html_content) 
 
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.post("/save_html")
+async def save_html(request: Request):
+    form_data = await request.form()
+    form_dict = dict(form_data)
+
+    for i, form in enumerate(selected_forms):
+        if form.get("form_name") == form_dict.get("form_name"):
+            selected_forms[i].update(form_dict)
+            break
+    
+    fill_response = await fill_json_agent.run(
+        f"User updated the form {form_dict.get('form_name')}. Please acknowledge the update and proceed farther."
+    )
+    chat_messages.append({"role": "salawmander", "content": fill_response.output.response})
+    
+    return JSONResponse(content={"message": fill_response.output.response}, status_code=200)

@@ -17,10 +17,12 @@
   </div>
 
   <header>
-    <div class="logo-title">
-      <img src="static/images/salawmanderlogo.png" alt="Logo">
-      <h1>Sa<span class="law">law</span>mander</h1>
-    </div>
+    <a href="/" style="text-decoration: none; color: inherit;">
+      <div class="logo-title">
+        <img src="static/images/salawmanderlogo.png" alt="Logo">
+        <h1>Sa<span class="law">law</span>mander</h1>
+      </div>
+    </a>
   </header>
 
   <main class="chat-layout">
@@ -34,7 +36,10 @@
       <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
       <div class="chat-input">
         <input type="text" placeholder="Type your message...">
-        <button>Send</button>
+        <button id="send-btn">
+          <span class="btn-text">Send</span>
+          <span class="loader" style="display: none;"></span>
+        </button>
       </div>
       <div class="disclaimer">
         <strong>Disclaimer:</strong> This is an AI generated website and tool. Please double check all information. Salawmander is not responsible for any damages or injuries incurred as a result of using the website.
@@ -57,17 +62,16 @@
     </div>
   </div>
 
-  <div id="form-popup" class="form-modal" style="display: none;">
-    <div class="form-modal-content">
-      <button class="form-modal-close">&times;</button>
-      <div id="form-content"></div>
+  <div id="form-modal" class="form-modal" style="display: none;">
+    <div class="form-content" id="form-content">
+      <span class="close-button" id="form-close">&times;</span>
     </div>
   </div>
+
 
   <footer>&copy; 2025 Salawmander. All rights reserved.</footer>
   <script src="static/js/formsScripts.js"></script>
 
-  <!-- Inject chat history and forms data from Flask -->
   <script>
     window.chatHistory = {{ chat_history|tojson }};
     window.formsData = {{ forms|tojson }};
