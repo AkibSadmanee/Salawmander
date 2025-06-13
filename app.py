@@ -35,49 +35,23 @@ fill_json_agent = Agent(
     "gpt-4.1",
     deps_type=None,
     output_type=Response,
-#     system_prompt="""You are an AI assistant that helps users fill out all the forms at the same time by asking relevant questions in simple terms. Remember that the users can make simple typos.
-# Ask for information overlapping between the forms first and then move on to the standalone information.
-# You will load the current list of forms using the get_most_recent_forms tool.
-# You will analyze the user message and update the all the fields of the relevant forms that you can confidently fill with the provided information by passing a python dictionary (where the keys are the field names and the values are the user-provided values) to the update_json tool.
-# The update_json tool will iterate over all the loaded forms and update the values for all the fields in all the forms where the keys match with the dictionary you provide.
+    system_prompt="""You are an AI assistant that helps users fill out all the forms at the same time by asking relevant questions in simple terms.
+You will load the current list of forms (python dictionaries) using the get_most_recent_forms tool.
+You will analyze the user message and update the all the fields of the relevant forms that you can confidently fill with the provided information by passing a python dictionary (where the keys are the field names and the values are the user-provided values) to the update_json tool.
+The update_json tool will iterate over all the loaded forms and update the values for all the fields in all the forms where the keys match with the dictionary you provide.
 
-# *Important rules:*
-# If there are missing values in the updated JSON object, ask for one to the user. Make sure to explain in very simple terms what the user should answer your query with.
-# You never ask for more than two values at a time. You also never ask for a value that is already filled in the JSON object.
-# If all the fields of the json object are filled, return a completion note instead of a query.
-# If you can't fill any field of the JSON object, return a question to the user asking for a missing value from the loaded JSON.
-# Always confirm whether the user is a defendant or a plaintiff if that information is needed but not yet known. Only enter human names in those fields.
-# You may call each tool only once per run.
-# If the user provides information that conflicts with already-filled fields, ask for clarification before updating.
-# Be very careful about what values you fill in what keys of the JSON object. If you are not sure about the value, ask the user to clarify.
-# The Division can only be one of the following: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
-# The Circuit can only be one of the following: "First: Oahu", "Second:Maui, Moloka'i Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
-# Always convert dates to the format MM-DD-YYYY. In case you need today's date, use the get_today_date tool.
-# """
-    system_prompt="""
-You are an AI assistant helping users fill out multiple forms simultaneously.
-
-
-Process:
-- Use the get_most_recent_forms tool to load current forms.
-- Ask users simple questions to fill overlapping fields first, then move to unique fields.
-- Users might make typos; clarify if needed.
-- Confirm if the user is a plaintiff or defendant when necessary; only enter human names in these fields.
-- Convert all dates to MM-DD-YYYY. Use get_today_date for today's date.
-
-
-Interaction Rules:
-- Ask no more than two values at once.
-- Don't request values already provided.
-- If all fields are filled, confirm completion.
-- Clarify immediately if provided information conflicts with existing data.
-- Only fill fields confidently; otherwise, request clarification.
-
-
-Field Constraints:
-- Division options: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
-- Circuit options: "First: Oahu", "Second: Maui, Moloka'i, Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
-- Use the update_json tool once per interaction to update fields with a Python dictionary ({field_name: user_value}).
+*Important rules:*
+If there are missing values in the updated JSON object, ask for one to the user. Make sure to explain in very simple terms what the user should answer your query with.
+You never ask for a value that is already filled in the JSON object unless a contradiction occurs.
+If all the fields of the json object are filled, return a completion note instead of a query.
+If you can't fill any field of the JSON object, return a question to the user asking for a missing value from the loaded JSON.
+Only enter human names in the defendant and plaintiff fields.
+You may call each tool only once per run.
+If the user provides information that conflicts with already-filled fields, ask for clarification before updating.
+Be very careful about what values you fill in what keys of the JSON object. If you are not sure about the value, ask the user to clarify.
+The Division can only be one of the following: "Honolulu", "Ewa", "Ko'olauloa", "Ko'olaupoko", "Wai'anae", "Waialua", "Wahiawa".
+The Circuit can only be one of the following: "First: Oahu", "Second:Maui, Moloka'i Lāna'i", "Third: Hawaii (AKA Big Island)", "Fifth: Kauai'i".
+Always convert dates to the format MM/DD/YYYY even if the user says something like 10th of June 2018. In case you need today's date, use the get_today_date tool.
 """
 )
 
@@ -115,18 +89,26 @@ async def post_root(request: Request):
     global initial_message
     data = await request.json()
     user_query = data.get("query", "")
+    print("Here 1")
     response = await form_select_agent.run(user_query)
-
+    print("Here 2")
+    
     forms_found = [form.model_dump() for form in response.output.forms]
+    
+    print(f"Forms found: {forms_found}")
+
     for form in forms_found:
         if form["form_name"]:
             selected_forms.append(user_forms[form["form_name"]]().model_dump())
             selected_forms[-1]["form_name"] = form["form_name"]
 
+    print(f"Selected forms 1: {selected_forms}")
+    print("Here 3")
     fill_response = await fill_json_agent.run(user_query)
+    print("Here 4")
     initial_message = fill_response.output.response
     chat_messages.append({"role": "salawmander", "content": initial_message})
-
+    print(f"Selected forms x: {selected_forms}")
     return JSONResponse(content={"forms": forms_found})
 
 
@@ -139,6 +121,7 @@ async def form(request: Request, info: str = ""):
         }
         for i, form in enumerate(selected_forms)
     ]
+    
     return templates.TemplateResponse(
         "formPage.html",
         {
@@ -156,7 +139,16 @@ async def form_fill(request: Request):
     user_query = data.get("query", "")
     chat_messages.append({"role": "user", "content": user_query})
 
-    query = chat_messages[-1]["content"] + "\n\nuser query: " + user_query
+
+    query = ""
+    if len(chat_messages) < 4:
+        for chat in chat_messages:
+            query += f"{chat['role'].capitalize()}: {chat['content']}\n"
+    else:
+        for i, chat in enumerate(chat_messages):
+            if i >= len(chat_messages) - 4:
+                query += f"{chat['role'].capitalize()}: {chat['content']}\n"
+
     response = await fill_json_agent.run(query)
 
     result_message = response.output.response
@@ -178,7 +170,7 @@ async def form_fill(request: Request):
 async def get_html(request: Request):
     data = await request.json()
     form_name = data.get("form_name")
-    print(f"Selected forms: {selected_forms}")
+    print(f"Selected forms 2: {selected_forms}")
     print()
     print(f"Received form_name: {form_name}")
     # Validate form_name
