@@ -41,8 +41,6 @@ class CertificateOfService(BaseModel):
         default_factory=list, 
         description="List of recipients with names and mailing addresses."
     )
-    # Your signature
-    signature: Optional[str] = Field(None, description="Your signature.")
     # Print or type your full name
     typed_name: Optional[str] = Field(None, description="Your typed or printed name.")
     # Date you signed the form
@@ -111,11 +109,6 @@ class Counterclaim(BaseModel):
         None,
         description="Date when you signed the certificate confirming service."
     )
-    # Your signature confirming service
-    certificate_signature: Optional[str] = Field(
-        None,
-        description="Your signature confirming you served the Counterclaim."
-    )
     # Printed/typed name below certificate signature
     certificate_name: Optional[str] = Field(
         None,
@@ -125,11 +118,6 @@ class Counterclaim(BaseModel):
     declaration_signature_date: Optional[str] = Field(
         None,
         description="Date when you signed the Declaration section."
-    )
-    # Your signature for the Declaration
-    declaration_signature: Optional[str] = Field(
-        None,
-        description="Your signature declaring everything in the Counterclaim is true."
     )
     # Printed/typed name below declaration signature
     declaration_name: Optional[str] = Field(
@@ -199,10 +187,7 @@ class NonHearingMotionForContinuance(BaseModel):
     service_address: Optional[str] = Field(
         None, description="Address where the motion was delivered or mailed."
     )
-    # Signature of filing party
-    filing_party_signature: Optional[str] = Field(
-        None, description="Signature of the person filing the motion."
-    )
+
     # Name of filing party (typed or printed)
     filing_party_name: Optional[str] = Field(
         None, description="Typed or printed name under signature."
@@ -226,10 +211,6 @@ class NonHearingMotionForContinuance(BaseModel):
     # Address where the response was delivered or mailed
     response_service_address: Optional[str] = Field(
         None, description="Address where the response was delivered or mailed."
-    )
-    # Signature of the opposing party if they are responding
-    opposing_party_signature: Optional[str] = Field(
-        None, description="Signature of the opposing party responding."
     )
 
 
@@ -275,10 +256,7 @@ class NoticeOfDismissal(BaseModel):
     filing_date: Optional[str] = Field(
         None, description="Date when you submit this form to the court."
     )
-    # Signature of the person filing
-    signature: Optional[str] = Field(
-        None, description="Signature of the person filing the motion."
-    )
+
     # Printed or typed name of the person filing
     printed_name: Optional[str] = Field(
         None, description="Print or type your full name under your signature."
@@ -329,10 +307,6 @@ class OrderContinuingSmallClaimsCase(BaseModel):
     # Date court clerk signed the order
     clerk_date: Optional[str] = Field(
         None, description="Date court clerk signed this order."
-    )
-    # Signature of the court clerk
-    clerk_signature: Optional[str] = Field(
-        None, description="Signature of the court clerk issuing this order."
     )
 
 
@@ -429,10 +403,7 @@ class RequestForReliefFromCourtCosts(BaseModel):
     declaration_signature_date: Optional[str] = Field(
         None, description="Date you sign this form."
     )
-    # Applicant's signature
-    declaration_signature: Optional[str] = Field(
-        None, description="Your signature to confirm information is true."
-    )
+
     # Printed or typed name under signature
     declaration_name: Optional[str] = Field(
         None, description="Print or type your full name under your signature."
@@ -485,10 +456,7 @@ class SmallClaimsStatementOfClaimGeneral(BaseModel):
     declaration_date: Optional[str] = Field(
         None, description="Date plaintiff signs the declaration."
     )
-    # Plaintiff's signature
-    plaintiff_signature: Optional[str] = Field(
-        None, description="Plaintiff's signature."
-    )
+
     # Defendant's name (again, for notice section)
     defendant_name_notice: Optional[str] = Field(
         None, description="Defendant's name for the notice section."
@@ -504,10 +472,6 @@ class SmallClaimsStatementOfClaimGeneral(BaseModel):
     # Date court clerk scheduled the hearing (court fills in)
     clerk_signature_date: Optional[str] = Field(
         None, description="Date clerk scheduled the hearing (court fills in)."
-    )
-    # Clerk's signature (court fills in)
-    clerk_signature: Optional[str] = Field(
-        None, description="Court clerk's signature (court fills in)."
     )
 
 
@@ -552,10 +516,6 @@ class SmallClaimsStatementOfClaimGeneralSecurityDeposit(BaseModel):
     declaration_date: Optional[str] = Field(
         None, description="Date you are signing this form."
     )
-    # Plaintiff's signature (tenant)
-    plaintiff_signature: Optional[str] = Field(
-        None, description="Your signature to swear the information is true."
-    )
     # Landlord's name (again for notice section)
     notice_to: Optional[str] = Field(
         None, description="Your landlord’s name again for the notice section."
@@ -571,10 +531,6 @@ class SmallClaimsStatementOfClaimGeneralSecurityDeposit(BaseModel):
     # Date clerk scheduled the hearing (court fills in)
     clerk_signature_date: Optional[str] = Field(
         None, description="Court clerk writes the date hearing was scheduled."
-    )
-    # Clerk's signature (court fills in)
-    clerk_signature: Optional[str] = Field(
-        None, description="Court clerk signs after scheduling hearing."
     )
 
 
@@ -624,10 +580,6 @@ class StipulationForDismissal(BaseModel):
     plaintiff_signature_date: Optional[str] = Field(
         None, description="Date Plaintiff (or attorney) signs this form."
     )
-    # Plaintiff (or attorney) signature
-    plaintiff_signature: Optional[str] = Field(
-        None, description="Signature of the Plaintiff or their lawyer."
-    )
     # Printed/typed name of Plaintiff or their lawyer
     plaintiff_printed_name: Optional[str] = Field(
         None, description="Printed/typed name of Plaintiff or their lawyer."
@@ -635,10 +587,6 @@ class StipulationForDismissal(BaseModel):
     # Date Defendant (or attorney) signs the form
     defendant_signature_date: Optional[str] = Field(
         None, description="Date Defendant (or attorney) signs this form."
-    )
-    # Defendant (or attorney) signature
-    defendant_signature: Optional[str] = Field(
-        None, description="Signature of the Defendant or their lawyer."
     )
 
 

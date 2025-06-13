@@ -204,3 +204,8 @@ async def save_html(request: Request):
     chat_messages.append({"role": "salawmander", "content": fill_response.output.response})
     
     return JSONResponse(content={"message": fill_response.output.response}, status_code=200)
+
+
+@app.get("/get_data")
+def get_data():
+    return JSONResponse(content=selected_forms)

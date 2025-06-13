@@ -272,3 +272,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+
+// async function fetchDataAndGeneratePDF() {
+//   try {
+//     const response = await fetch('/get_data');
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     const jsonData = await response.json();
+//     generatePDF(jsonData);
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// }
+
+// function generatePDF(dataList) {
+//   const { jsPDF } = window.jspdf;
+//   const doc = new jsPDF();
+
+//   let yPosition = 10;
+
+//   dataList.forEach((item, idx) => {
+//     doc.text(`Form #${idx + 1}: ${item.form_name}`, 10, yPosition);
+//     yPosition += 10;
+
+//     // Print all key-value pairs except form_name
+//     Object.entries(item).forEach(([key, value]) => {
+//       if (key !== 'form_name') {
+//         doc.text(`    ${key}: ${value}`, 10, yPosition);
+//         yPosition += 8;
+//       }
+//     });
+
+//     yPosition += 10; // Space between forms
+
+//     // If yPosition gets close to bottom, add new page
+//     if (yPosition > 270) {
+//       doc.addPage();
+//       yPosition = 10;
+//     }
+//   });
+
+//   doc.save('forms.pdf');
+// }
+
+// // Call the function
+// fetchDataAndGeneratePDF();
